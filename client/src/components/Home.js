@@ -19,7 +19,7 @@ class Home extends Component {
           </div>
           <div className="card">
             <div className="card-body">
-              <Link to='/login' className='text-center'>SignIn</Link>
+              <Link to='/loginHook' className='text-center'>SignIn</Link>
             </div>
           </div>
         </div>

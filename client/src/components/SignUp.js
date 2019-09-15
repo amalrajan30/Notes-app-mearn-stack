@@ -1,71 +1,48 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom'
-import { signUp } from '../actions'
+import React, { useContext, useState } from 'react'
+import { LoginContext } from '../context/LoginContext';
 
-class SignUp extends Component {
-    constructor(props) {
-        super(props)
+const Signup = () => {
+    const name = useInput('');
+    const email = useInput('');
+    const password = useInput('');
+    const { signUpData, msg } = useContext(LoginContext);
+    return (
+        <div className="container mt-5 p-5">
+            <form>
+                <div className="form-group">
+                    <label htmlFor="nameInput">Name</label>
+                    <input type="text" {...name} className="form-control" />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="emailInput">Email</label>
+                    <input type="text" id="email" {...email} className="form-control" />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="passwordInput">Password</label>
+                    <input type="password" {...password} className="form-control" />
+                </div>
+                <div className="form-group">
+                    <input type="button" id="submit"
+                        onClick={() => signUpData(name.value, email.value, password.value)}
+                        className="form-control btn btn-success" value='Sign Up' />
+                </div>
+                <div className="text-center text-danger">
+                    {msg ? <p>{msg}</p> : null}
+                </div>
+            </form>
+        </div>
+    );
+}
 
-        this.state = {
-            name: '',
-            email: '',
-            password: ''
-        }
+export const useInput = initial => {
+    const [value, setValue] = useState(initial);
+    const handleChange = (e) => {
+        setValue(e.target.value);
     }
-
-    handleChange = (e) => {
-        this.setState({
-            [e.target.name]: e.target.value
-        })
-    }
-
-    onSignUp = (e) => {
-        e.preventDefault();
-        let data = {
-            name: this.state.name,
-            email: this.state.email,
-            password: this.state.password
-        }
-        this.props.signUp(data)
-    }
-
-    render() {
-        if (this.props.auth.token) {
-            return (
-                <Redirect to='/lists' />
-            )
-        }
-        return (
-            <div className="container mt-5 p-5">
-                <form>
-                    <div className="form-group">
-                        <label htmlFor="nameInput">Name</label>
-                        <input type="text" id="name" onChange={this.handleChange} name='name' className="form-control" />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="emailInput">Email</label>
-                        <input type="text" id="email" name='email' onChange={this.handleChange} className="form-control" />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="passwordInput">Password</label>
-                        <input type="password" id="password" name='password' onChange={this.handleChange} className="form-control" />
-                    </div>
-                    <div className="form-group">
-                        <input type="button" id="submit" onClick={this.onSignUp} className="form-control btn btn-success" value='Sign Up' />
-                    </div>
-                </form>
-            </div>
-        )
+    return {
+        value,
+        onChange: handleChange,
     }
 }
 
-const mapStateToProps = state => ({
-    auth: state.auth
-})
-
-const mapDispatchToProps = dispatch => ({
-    signUp: (data) => dispatch(signUp(data))
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignUp)
+export default Signup

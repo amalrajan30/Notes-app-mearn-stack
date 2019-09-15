@@ -4,6 +4,8 @@ import Main from './components/Main'
 import Header from './elements/Header';
 import { Provider } from 'react-redux';
 import store from './Store'
+import LoginContextProvider from './context/LoginContext';
+import NotesContextProvider from './context/NotesContex';
 
 class App extends Component {
 
@@ -11,8 +13,12 @@ class App extends Component {
     return (
       <Provider store={store}>
         <div className="App">
-          <Header />
-          <Main />
+          <LoginContextProvider>
+            <Header />
+            <NotesContextProvider>
+              <Main />
+            </NotesContextProvider>
+          </LoginContextProvider>
         </div>
       </Provider>
     );
