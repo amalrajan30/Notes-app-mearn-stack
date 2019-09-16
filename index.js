@@ -32,7 +32,7 @@ mongoose.connect(process.env.MONGODB_CONNECT,
         useCreateIndex: true
     })
     .then(connection => console.log('Mongo Conneted'))
-    .catch(err => console.log('Mongo connetion error'))
+    .catch(err => console.log('Mongo connetion error',err))
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'))

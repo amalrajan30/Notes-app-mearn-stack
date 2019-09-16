@@ -14,12 +14,13 @@ async function callAgenda(id, time, title) {
   agenda.schedule(time, 'notes reminder', { usrId: id, title })
 }
 
+
 router.post("/", auth, (req, res) => {
   const { title, body, time } = req.body
   const socket = req.app.get('socketio')
   agenda.define('notes reminder', function (job, done) {
     console.log('Receied in agenda 20 sec -----', job.attrs.data.usrId);
-    socket.emit('Testing socket', job.attrs.data.title)
+      socket.emit('Testing socket', job.attrs.data.title)
     done();
   })
   var data = new Notes({ title: title, body: body, owner: req.userId })

@@ -5,7 +5,7 @@ export default function SignedOut() {
     return (
         <ul className="nav">
             <li className="nav-item">
-                <Link to='/login' className="nav-link">
+                <Link to='/loginHook' className="nav-link">
                     LogIn
       </Link>
             </li>
