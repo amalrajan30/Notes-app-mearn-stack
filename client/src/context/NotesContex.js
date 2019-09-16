@@ -1,5 +1,6 @@
 import React, { createContext, useState } from 'react';
-import history from '../history'
+import history from '../history';
+import { API_BASE } from '../config'
 
 export const NotesContext = createContext();
 
