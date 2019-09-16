@@ -1,12 +1,13 @@
 import React, { createContext, useState } from 'react'
 import history from '../history';
+import {API_BASE} from '../config'
 
 export const LoginContext = createContext();
 
 const LoginContextProvider = (props) => {
     const [msg, setMsg] = useState('');
     const loginData = (email, password) => {
-        fetch(`http://localhost:5000/login`, {
+        fetch(`${API_BASE}/login`, {
             method: "POST",
             body: JSON.stringify({
                 email,
@@ -28,7 +29,7 @@ const LoginContextProvider = (props) => {
             .catch(err => console.log(err))
     }
     const signUpData = (name, email, password) => {
-        fetch(`http://localhost:5000/signup`, {
+        fetch(`${API_BASE}/signup`, {
             method: 'POST',
             body: JSON.stringify({
                 name,

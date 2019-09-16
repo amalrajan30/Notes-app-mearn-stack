@@ -2,6 +2,7 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 import socketIOClient from 'socket.io-client';
 
+import { API_BASE } from '../config'
 import List from "./List";
 import Create from "./Create";
 import Home from "./Home";
@@ -10,7 +11,7 @@ import SignUp from './SignUp';
 import LoginHooks from './LoginHook';
 
 const Main = () => {
-  const uri = 'http://localhost:5000/'
+  const uri = `${API_BASE}/`
   const socket = socketIOClient(uri);
   socket.on('Testing socket', data => {
     window.alert(data);

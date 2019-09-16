@@ -6,7 +6,7 @@ export const NotesContext = createContext();
 const NotesContextProvider = (props) => {
     const [notes, setNotes] = useState([])
     const getNotes = () => {
-        fetch(`http://localhost:5000/notes`, {
+        fetch(`${API_BASE}/notes`, {
             method: 'GET',
             headers: {
                 'x-auth-token': sessionStorage.getItem('token')
@@ -23,7 +23,7 @@ const NotesContextProvider = (props) => {
             .catch(err => console.log(err))
     }
     const editNotes = (data) => {
-        fetch(`http://localhost:5000/notes`, {
+        fetch(`${API_BASE}/notes`, {
             method: 'PUT',
             body: JSON.stringify({
                 _id: data.id,
@@ -46,7 +46,7 @@ const NotesContextProvider = (props) => {
             .catch(err => console.log(err))
     }
     const deleteNotes = (_id) => {
-        fetch(`http://localhost:5000/notes`, {
+        fetch(`${API_BASE}/notes`, {
             method: 'DELETE',
             body: JSON.stringify({
                 _id
@@ -68,7 +68,7 @@ const NotesContextProvider = (props) => {
     }
     const createNotes = (title, body, time) => {
         console.log('Create Notes Data---------', title, body, time);
-        fetch(`http://localhost:5000/notes`, {
+        fetch(`${API_BASE}/notes`, {
             method: 'POST',
             body: JSON.stringify({
                 title,
